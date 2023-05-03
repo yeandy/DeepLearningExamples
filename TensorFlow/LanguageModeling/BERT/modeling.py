@@ -392,7 +392,7 @@ def layer_norm_and_dropout(input_tensor, dropout_prob, name=None):
 
 def create_initializer(initializer_range=0.02):
   """Creates a `truncated_normal_initializer` with the given range."""
-  return tf.truncated_normal_initializer(stddev=initializer_range)
+  return tf.truncated_normal_initializer(stddev=initializer_range, dtype=tf.bfloat16)
 
 
 def embedding_lookup(input_ids,
@@ -558,7 +558,7 @@ def create_attention_mask_from_input_mask(from_tensor, to_mask):
   Returns:
     float Tensor of shape [batch_size, from_seq_length, to_seq_length].
   """
-  to_mask = tf.cast(to_mask, dtype=tf.float32)
+  to_mask = tf.cast(to_mask, dtype=tf.bfloat16)
 
   from_shape = get_shape_list(from_tensor, expected_rank=[2, 3])
   batch_size = from_shape[0]
